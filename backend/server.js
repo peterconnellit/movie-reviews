@@ -12,7 +12,7 @@ app.use(express.json())
 
 //specify internal routes using general convention for API urls. Invalid route will result in wildcard used to return 404 'not found' message
 app.use("/api/v1/movies", movies)
-app.use("*", (req,res)=>{
+app.use('*', (req,res)=>{
     res.status(404).json({error: "not found"})
 })
 

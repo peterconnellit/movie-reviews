@@ -14,7 +14,7 @@ async function main(){
         process.env.MOVIEREVIEWS_DB_URI
     )
     //retrieve port from access .env or use port 8000
-    const port = process.env.port || 8000
+    const port = process.env.PORT || 8000
     
     //try catch error handling
     //call client.connect and return a promise, await blocks further action until operation has completed
