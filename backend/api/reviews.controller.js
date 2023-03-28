@@ -36,7 +36,7 @@ export default class ReviewsController{
             const date = new Date()
 
             //user_id is passed to check if user is the original creator
-            const ReviewResponse = await ReviewsDAO.UpdateReview(
+            const ReviewResponse = await ReviewsDAO.updateReview(
                 reviewId,
                 req.body.user_id,
                 review,
