@@ -3,6 +3,7 @@ import app from './server.js'
 import mongodb from "mongodb"
 import dotenv from "dotenv"
 import MoviesDAO from './dao/moviesDAO.js'
+import ReviewsDAO from './dao/reviewsDAO.js'
 
 //connect to MongoDB cluster and call functions
 async function main(){
@@ -22,8 +23,9 @@ async function main(){
     try{
         //connect to the Mongodb cluster
         await client.connect()
-        //injectDB() called, before server starts, to get initial reference to the database movies collection
+        //injectDB() called, before server starts, to get initial reference to the database movies and reviews collections
         await MoviesDAO.injectDB(client)
+        await ReviewsDAO.injectDB(client)
 
         //after connection, start web server
         app.listen(port, () =>{
