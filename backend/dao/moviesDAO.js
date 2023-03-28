@@ -1,3 +1,6 @@
+import mongodb from "mongodb"
+const ObjectId = mongodb.ObjectID
+
 //reference to the database
 let movies
 
@@ -50,4 +53,48 @@ export default class MoviesDAO{
             return { moviesList: [], totalNumMovies: 0}
         }
     }
+
+    static async getRatings(){
+        let ratings = []
+        try{
+            //movies.distinct returns rated values from the movies collection. We then assign them to the ratings array
+            ratings = await movies.distinct("rated")
+            return ratings
+        }
+        catch(e){
+            console.error(`unable to get ratings, ${e}`)
+            return ratings
+        }
+    }
+
+    static async getMovieById(id){
+        try{
+            /*aggregate provides a sequence of data aggregation operations.
+            For $match, we look for the movie document that matches the specified id.
+            $lookup performs an equality join using the _id field from the movie document with the 
+            movie_id field from the reviews collection*/
+            return await movies.aggregate([
+                {
+                    $match: {
+                        _id: new ObjectId(id),
+                    }
+                },
+                //finds all the reviews with the specific movie id and returns the specific movie together with the reviews in an array.
+                //part of the mongoDB aggregation framework
+                { $lookup:
+                    {
+                        from: 'reviews',
+                        localField: '_id',
+                        foreignField: 'movie_id',
+                        as: 'reviews',
+                    }
+                }
+            ]).next()
+        }
+        catch(e){
+            console.error(`something went wrong in getMovieById: ${e}`)
+            throw e
+        }
+    }
+    
 }

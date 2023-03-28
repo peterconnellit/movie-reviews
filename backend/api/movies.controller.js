@@ -33,4 +33,33 @@ export default class MoviesController{
         //sends json response with the above response object to whoever calls this URL
         res.json(response)
     }
+
+    static async apiGetMovieById(req, res, next){
+        try{
+            //looks for id parameter
+            let id = req.params.id || {}
+            //returns a specific movie in json, or error
+            let movie = await MoviesDAO.getMovieById(id)
+            if(!movie){
+                res.status(404).json({ error: "not found"})
+                return
+            }
+            res.json(movie)
+        }
+        catch(e){
+            console.log(`api, ${e}`)
+            res.status(500).json({error: e})
+        }
+    }
+
+    static async apiGetRatings(req, res, next){
+        try{
+            let propertyTypes = await MoviesDAO.getRatings()
+            res.json(propertyTypes)
+        }
+        catch(e){
+            console.log(`api, ${e}`)
+            res.status(500).json({error: e})
+        }
+    }
 }

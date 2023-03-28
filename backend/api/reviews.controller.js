@@ -43,8 +43,7 @@ export default class ReviewsController{
                 date
             )
 
-            //let
-            var { error } = ReviewResponse
+            let { error } = ReviewResponse
             if(error){
                 res.status.json({error})
             }
