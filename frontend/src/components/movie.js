@@ -8,7 +8,7 @@ import Image from 'react-bootstrap/Image';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Media from 'react-bootstrap/Media';
+
 
 const Movie = props => {
 
@@ -59,8 +59,33 @@ const Movie = props => {
                                 </Link>}
                             </Card.Body>
                         </Card>
+                        <h2>Reviews</h2>
                         <br></br>
-                        <h2>Reviews</h2>                    
+                        {/*higher order function. Renders a Media component for each review*/}  
+                        {movie.reviews.map((review, index) =>{
+                            return (
+                                <Card key={index}>
+                                    <Card.Body>
+                                        <h5>{review.name + " reviewed on " + review.date}</h5>
+                                        <p>{review.review}</p>
+                                        {/*a user can only delete reviews they have posted.
+                                        If props.user is true and the id is the same as the review id, do we render Edit/Delete*/} 
+                                        {props.user && props.user.id === review.user_id &&
+                                            <Row>
+                                                <Col><Link to={{
+                                                    pathname: "/movies/"+
+                                                                props.match.params.id+
+                                                                "/review",
+                                                    state: {currentReview: review}
+                                                }}>Edit</Link>                                            
+                                                </Col>
+                                                <Col><Button variant="link">Delete</Button></Col>
+                                            </Row>
+                                        }
+                                    </Card.Body>
+                                </Card>
+                            )
+                        })}                 
                     </Col>
                 </Row>
             </Container>
