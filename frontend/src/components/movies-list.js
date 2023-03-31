@@ -99,7 +99,7 @@ const MoviesList = props => {
                             <Form.Group>
                                 <Form.Control
                                 type="text"
-                                placeHolder="Search by title"
+                                placeholder="Search by title"
                                 //set to searchTitle state variable
                                 value={searchTitle}
                                 //updates searchTitle

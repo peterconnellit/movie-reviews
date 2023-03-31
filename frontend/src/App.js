@@ -51,7 +51,7 @@ function App(){
       {/* switch component switches between routes, rendering the first that matches.
       Render allows props to be passed into a component rendered by React Router.
       Here we are passing user as props to the Addreview component*/}
-      <switch>
+      <Switch>
         <Route exact path={["/", "/movies"]} component={MoviesList}>          
         </Route>
         <Route path="/movies/:id/review" render={(props)=>
@@ -68,7 +68,7 @@ function App(){
           <Login {...props} login={login} />
         }>          
         </Route>
-      </switch>
+      </Switch>
     </div>
   );
 }
