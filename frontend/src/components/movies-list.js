@@ -63,6 +63,32 @@ const MoviesList = props => {
         })
     }
 
+    //provides the search query value entered by the user to MovieDataService.find, find() calls the backend API
+    const find = (query, by) =>{
+        MovieDataService.find(query,by).then(response =>{
+            console.log(response.data)
+            setMovies(response.data.movies)
+        })
+        .catch(e =>{
+            console.log(e)
+        })
+    }
+
+    //called by "Search by title's button. provide the title value to be searched to find() and tells it to search by "title"
+    const findByTitle = () =>{
+        find(searchTitle, "title")
+    }
+
+    //called by the "Search by rating's button. If user does not specify rating, the default "All ratings" will retrieve all movies
+    const findByRating = () =>{
+        if(searchRating === "All Ratings"){
+            retrieveMovies()
+        }
+        else{
+            find(searchRating, "rated")
+        }
+    }
+
     //React form with a search by title and search by ratings dropdown
     return (
         <div className="App">
