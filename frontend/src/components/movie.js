@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import MovieDataService from '../services/movies'
 import {Link, link} from 'react-router-dom'
+import moment from 'moment'
 
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
@@ -66,7 +67,7 @@ const Movie = props => {
                             return (
                                 <Card key={index}>
                                     <Card.Body>
-                                        <h5>{review.name + " reviewed on " + review.date}</h5>
+                                        <h5>{review.name + " reviewed on "} {moment(review.date).format("Do MMMM YYYY")}</h5>
                                         <p>{review.review}</p>
                                         {/*a user can only delete reviews they have posted.
                                         If props.user is true and the id is the same as the review id, do we render Edit/Delete*/} 
