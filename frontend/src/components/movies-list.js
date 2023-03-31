@@ -1,13 +1,14 @@
 //imports useState to create a series of state variables
 import React, {useState, useEffect} from 'react'
 import MovieDataService from "../services/movies"
-import {link} from "react-router-dom"
+import {Link, link} from "react-router-dom"
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 
 /*functional component which receives ad uses props.
 useState hook creates movies, searchTitle, searchRating and ratings state variable.
@@ -62,6 +63,7 @@ const MoviesList = props => {
         })
     }
 
+    //React form with a search by title and search by ratings dropdown
     return (
         <div className="App">
             <Container>
@@ -72,13 +74,16 @@ const MoviesList = props => {
                                 <Form.Control
                                 type="text"
                                 placeHolder="Search by title"
+                                //set to searchTitle state variable
                                 value={searchTitle}
+                                //updates searchTitle
                                 onChange={onChangeSearchTitle}
                                 />
                             </Form.Group>
                             <Button
                                 variant="primary"
                                 type="button"
+                                //calls findByTitle method
                                 onClick={findByTitle}
                             >
                                 Search
@@ -87,6 +92,9 @@ const MoviesList = props => {
                         <Col>
                             <Form.Group>
                                 <Form.Control
+                                /*dropdown field to select a movie rating where we use the map function.
+                                Higher order function (.map) takes a callback function as an argument and returns a new array
+                                with transformed values based on the returned value from the callback function.*/
                                 as = "select" onChange={onChangeSearchRating}>
                                 {ratings.map(rating =>{
                                     return(
@@ -98,6 +106,7 @@ const MoviesList = props => {
                             <Button
                                 variant="primary"
                                 type="button"
+                                //calls findByRating method
                                 onClick={findByRating}
                             >
                                 Search
@@ -105,6 +114,28 @@ const MoviesList = props => {
                         </Col>
                     </Row>                    
                 </Form>
+
+                {/*higher-order function, .map takes a function as an argument and returns a new array based on the output of that function.
+                For each movie in movies, we return a Card component from bootstrap*/}
+                <Row>
+                    {movies.map((movie) =>{
+                        return(
+                            <Col>
+                                <Card style={{ width: '18rem'}}>
+                                    <Card.Img src={movie.poster+"/100px180"} />
+                                    <Card.Body>
+                                        <Card.Title>{movie.title}</Card.Title>
+                                        <Card.Text>
+                                            Rating: {movie.rated}
+                                        </Card.Text>
+                                        <Card.Text>{movie.plot}</Card.Text>
+                                        <Link to={"/movies/"+movie._id} >View reviews</Link>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
+                    })}
+                </Row>
             </Container>
         </div>
     );
