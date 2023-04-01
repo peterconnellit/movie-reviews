@@ -21,6 +21,10 @@ const MoviesList = props => {
     const [searchRating, setSearchRating] = useState("")
     const [ratings, setRatings] = useState(["All ratings"])
 
+    //State variables to track which page is displayed, populated in retrieveMovies()
+    const [currentPage, setCurrentPage] = useState(0)
+    const [entriesPerPage, setEntriesPerPage] = useState(0)
+    
     //called when user types into the search title field. Then takes entered value and sets it to the component state
     const onChangeSearchTitle = e =>{
         const searchTitle = e.target.value
@@ -39,12 +43,20 @@ const MoviesList = props => {
     //the empty array prevents multiple unnecessary running of methods on every render
     },[])
 
+    //triggered each time currentPage changes in value, which calls retrieveMovies() with the updated currentPage value
+    useEffect(() =>{
+        retrieveMovies()
+    },[currentPage])
+
     /*calls MovieDataService.gatAll().
     Returns a promise from the database which is set to movies state variable with setMovies(response.data.movies)*/
     const retrieveMovies = () =>{
-        MovieDataService.getAll().then(response =>{
+        //JSON data includes page and entries per page
+        MovieDataService.getAll(currentPage).then(response =>{
             console.log(response.data)
             setMovies(response.data.movies)
+            setCurrentPage(response.data.page)
+            setEntriesPerPage(response.data.entries_per_page)
         })
         .catch( e =>{
             console.log(e)
@@ -162,6 +174,20 @@ const MoviesList = props => {
                         )
                     })}
                 </Row>
+                <br />
+                showing page: {currentPage}.
+                <Button variant='link'
+                onClick={() => {setCurrentPage(currentPage - 1)}}
+                >
+                Get last {entriesPerPage} results
+                </Button>
+              
+                
+                <Button variant='link'
+                onClick={() => {setCurrentPage(currentPage + 1)}}
+                >
+                Get next {entriesPerPage} results
+                </Button>
             </Container>
         </div>
     );
