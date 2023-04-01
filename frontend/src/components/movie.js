@@ -38,6 +38,23 @@ const Movie = props => {
         getMovie(props.match.params.id)
     },[props.match.params.id])
 
+    /*calls deleteReview in MovieDataService, which calls the delete API endpoint (supported by apiDeleteReview in ReviewsController).
+    Callback function gets the review array in the current state.
+    We provide the index of the review to be deleted to the splice method and set the updated reviews array as the state*/
+    const deleteReview = (reviewId, index) =>{
+        MovieDataService.deleteReview(reviewId, props.user.id).then(response => {
+            setMovie((prevState) =>{
+                prevState.reviews.splice(index,1)
+                return({
+                    ...prevState
+                })
+            })
+        })
+        .catch(e =>{
+            console.log(e)
+        })
+    }
+
     return (
         //two columns, one for the movie poster if it exists, and the second for movie details
         <div>
@@ -80,7 +97,11 @@ const Movie = props => {
                                                     state: {currentReview: review}
                                                 }}>Edit</Link>                                            
                                                 </Col>
-                                                <Col><Button variant="link">Delete</Button></Col>
+                                                {/*review id and the index from movie.reviews. function passed into deleteReview*/}
+                                                <Col><Button variant="link" onClick={() => deleteReview(review._id, index)}>
+                                                    Delete
+                                                    </Button>
+                                                </Col>
                                             </Row>
                                         }
                                     </Card.Body>
