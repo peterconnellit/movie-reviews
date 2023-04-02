@@ -1,8 +1,7 @@
 //imports useState to create a series of state variables
 import React, {useState, useEffect} from 'react'
 import MovieDataService from "../services/movies"
-import {Link, link} from "react-router-dom"
-
+import {Link} from "react-router-dom"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -24,33 +23,34 @@ const MoviesList = props => {
     //State variables to track which page is displayed, populated in retrieveMovies()
     const [currentPage, setCurrentPage] = useState(0)
     const [entriesPerPage, setEntriesPerPage] = useState(0)
-    
-    //called when user types into the search title field. Then takes entered value and sets it to the component state
-    const onChangeSearchTitle = e =>{
-        const searchTitle = e.target.value
-        setSearchTitle(searchTitle);
-    }
-
-    const onChangeSearchRating = e =>{
-        const searchRating = e.target.value
-        setSearchRating(searchRating);
-    }
-
-    //useEffect hook is called after the component renders, calling retrieveMovies() and retrieveRatings()
-    useEffect(() =>{
-        retrieveMovies()
-        retrieveRatings()
-    //the empty array prevents multiple unnecessary running of methods on every render
-    },[])
+    const [currentSearchMode, setCurrentSearchMode] = useState("")
 
     //triggered each time currentPage changes in value, which calls retrieveMovies() with the updated currentPage value
     useEffect(() =>{
-        retrieveMovies()
+        setCurrentPage(0)
+    },[currentSearchMode])
+
+    useEffect(() =>{
+        retrieveNextPage()
     },[currentPage])
+
+    useEffect(() => {
+        retrieveRatings();
+      }, []);
+
+    const retrieveNextPage = () =>{
+        if (currentSearchMode === "findByTitle")
+        findByTitle()
+        else if (currentSearchMode === "findByRating")
+        findByRating()
+        else
+        retrieveMovies()
+    }
 
     /*calls MovieDataService.gatAll().
     Returns a promise from the database which is set to movies state variable with setMovies(response.data.movies)*/
     const retrieveMovies = () =>{
+        setCurrentSearchMode("")
         //JSON data includes page and entries per page
         MovieDataService.getAll(currentPage).then(response =>{
             console.log(response.data)
@@ -61,6 +61,17 @@ const MoviesList = props => {
         .catch( e =>{
             console.log(e)
         })
+    }
+    
+    //called when user types into the search title field. Then takes entered value and sets it to the component state
+    const onChangeSearchTitle = e =>{
+        const searchTitle = e.target.value
+        setSearchTitle(searchTitle);
+    }
+
+    const onChangeSearchRating = e =>{
+        const searchRating = e.target.value
+        setSearchRating(searchRating);
     }
 
     //calls MovieDataService.getRatings to get list of ratings. Response data is concatenated
@@ -77,7 +88,7 @@ const MoviesList = props => {
 
     //provides the search query value entered by the user to MovieDataService.find, find() calls the backend API
     const find = (query, by) =>{
-        MovieDataService.find(query,by).then(response =>{
+        MovieDataService.find(query, by, currentPage).then(response =>{
             console.log(response.data)
             setMovies(response.data.movies)
         })
@@ -88,11 +99,13 @@ const MoviesList = props => {
 
     //called by "Search by title's button. provide the title value to be searched to find() and tells it to search by "title"
     const findByTitle = () =>{
+        setCurrentSearchMode("findByTitle")
         find(searchTitle, "title")
     }
 
     //called by the "Search by rating's button. If user does not specify rating, the default "All ratings" will retrieve all movies
     const findByRating = () =>{
+        setCurrentSearchMode("findByRating")
         if(searchRating === "All Ratings"){
             retrieveMovies()
         }
@@ -175,28 +188,17 @@ const MoviesList = props => {
                     })}
                 </Row>
                 <br />
+                {/*link buttons which increment and decrement currentPage state variable, triggering useEffect()*/}
                 showing page: {currentPage}.
-                <Button variant='link'
-                onClick={() => {setCurrentPage(currentPage - 1)}}
-                >
-                Get last {entriesPerPage} results
+                <Button variant='link' onClick={() => {setCurrentPage(currentPage - 1)}}>
+                    Get last {entriesPerPage} results
                 </Button>
-              
-                
-                <Button variant='link'
-                onClick={() => {setCurrentPage(currentPage + 1)}}
-                >
-                Get next {entriesPerPage} results
+                <Button variant='link' onClick={() => {setCurrentPage(currentPage + 1)}}>
+                    Get next {entriesPerPage} results
                 </Button>
             </Container>
         </div>
     );
 }
-
-
-
-
-
-
 
 export default MoviesList;

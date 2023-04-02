@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import MovieDataService from '../services/movies'
-import {Link, link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import moment from 'moment'
-
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
@@ -61,7 +60,7 @@ const Movie = props => {
             <Container>
                 <Row>
                     <Col>
-                        <Image src={movie.poster+"100px250"} fluid />
+                        <Image src={movie.poster+"/100px250"} fluid />
                     </Col>
                     <Col>
                         <Card>
@@ -91,11 +90,10 @@ const Movie = props => {
                                         {props.user && props.user.id === review.user_id &&
                                             <Row>
                                                 <Col><Link to={{
-                                                    pathname: "/movies/"+
-                                                                props.match.params.id+
-                                                                "/review",
-                                                    state: {currentReview: review}
-                                                }}>Edit</Link>                                            
+                                                    pathname: "/movies/" + props.match.params.id + "/review",
+                                                    state: {
+                                                        currentReview: review}
+                                                    }}>Edit</Link>                                            
                                                 </Col>
                                                 {/*review id and the index from movie.reviews. function passed into deleteReview*/}
                                                 <Col><Button variant="link" onClick={() => deleteReview(review._id, index)}>
