@@ -24,7 +24,6 @@ const Movie = props => {
     const getMovie = id =>{
         MovieDataService.get(id).then(response =>{
             setMovie(response.data)
-            console.log(response.data)
         })
         .catch(e =>{
             console.log(e)
@@ -64,7 +63,7 @@ const Movie = props => {
                         <Image src={movie.poster+"/100px250"} fluid alt="Move poster"/>
                     </Col>
                     <Col>
-                        <Card>
+                        <Card class="card bg-light mb-3">
                             <Card.Header as="h3">{movie.title}</Card.Header>
                             <Card.Body>
                                 <Card.Text>
@@ -77,12 +76,11 @@ const Movie = props => {
                                 </Link>}
                             </Card.Body>
                         </Card>
-                        <h3>Reviews</h3>
-                        <br></br>
+                        <h3>Reviews</h3>                
                         {/*higher order function. Renders a Media component for each review*/}  
                         {movie.reviews.map((review, index) =>{
                             return (
-                                <Card key={index}>
+                                <Card key={index} class="card bg-light mb-3">
                                     <Card.Body>
                                         <h4>{review.name + " reviewed on "} {moment(review.date).format("Do MMMM YYYY")}</h4>
                                         <p>{review.review}</p>

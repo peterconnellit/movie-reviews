@@ -27,21 +27,21 @@ function App(){
 
   return (
     <div className="App">
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="primary" expand="lg">
         <Navbar.Brand><h1>Movie Blog</h1></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle class="navbar-toggler" bg="light" aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav className="ms-auto">
             <Nav.Link>
               {/* routes to movies component */}
-              <Link to={"/movies"}>Movies</Link>
+              <Link to={"/movies"} class="btn btn-light">Movies</Link>
             </Nav.Link>
             <Nav.Link>
               {/* Conditional rendering. Login or out depending on state using ternary statement */}
               { user ? (
-                <a onClick={logout}>Logout User</a>
+                <a onClick={logout} class="btn btn-light">Logout User</a>
               ) : (
-                <Link to={"/login"}>Login</Link>
+                <Link to={"/login"} class="btn btn-light">Login</Link>
               )}
             </Nav.Link>
           </Nav>

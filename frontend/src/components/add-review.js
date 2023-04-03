@@ -64,16 +64,16 @@ const AddReview = props =>{
     }
 
     return (
-        <div>
+        <div className='vh-100'>
             {submitted ? (
-                <div>
+                <div className='login shadow-sm p-3 mb-5 bg-white rounded'>
                     <h2>Review submitted successfully</h2>
-                    <Link to={"/movies/"+props.match.params.id}>
+                    <Link to={"/movies/"+props.match.params.id} class="btn btn-success btn-lg">
                         Back to Movie
                     </Link>
                 </div>
             ):(
-                <Form>
+                <Form className='login shadow-sm p-3 mb-5 bg-white rounded'>
                     <Form.Group>
                         <h2>{editing ? "Edit Review" : "Create Review"}</h2>
                         <Form.Control
@@ -84,7 +84,7 @@ const AddReview = props =>{
                             onChange={onChangeReview}
                         />
                     </Form.Group>
-                    <Button variant="primary" onClick={saveReview}>
+                    <Button variant="btn btn-primary btn-lg" onClick={saveReview}>
                         Submit
                     </Button>      
                 </Form>

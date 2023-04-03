@@ -47,13 +47,12 @@ const MoviesList = props => {
         retrieveMovies()
     }
 
-    /*calls MovieDataService.gatAll().
+    /*calls MovieDataService.getAll().
     Returns a promise from the database which is set to movies state variable with setMovies(response.data.movies)*/
     const retrieveMovies = () =>{
         setCurrentSearchMode("")
         //JSON data includes page and entries per page
-        MovieDataService.getAll(currentPage).then(response =>{
-            console.log(response.data)
+        MovieDataService.getAll(currentPage).then(response =>{            
             setMovies(response.data.movies)
             setCurrentPage(response.data.page)
             setEntriesPerPage(response.data.entries_per_page)
@@ -76,8 +75,7 @@ const MoviesList = props => {
 
     //calls MovieDataService.getRatings to get list of ratings. Response data is concatenated
     const retrieveRatings = () =>{
-        MovieDataService.getRatings().then(response =>{
-            console.log(response.data)
+        MovieDataService.getRatings().then(response =>{           
             //start with "All ratings" if user does not specify any ratings
             setRatings(["All Ratings"].concat(response.data))
         })
@@ -88,8 +86,7 @@ const MoviesList = props => {
 
     //provides the search query value entered by the user to MovieDataService.find, find() calls the backend API
     const find = (query, by) =>{
-        MovieDataService.find(query, by, currentPage).then(response =>{
-            console.log(response.data)
+        MovieDataService.find(query, by, currentPage).then(response =>{            
             setMovies(response.data.movies)
         })
         .catch(e =>{
@@ -118,11 +115,13 @@ const MoviesList = props => {
     return (
         <div className="App">
             <Container>
+                <div className='searches'>
                 <Form>
                     <Row>
                         <Col>
                             <Form.Group>                            
                                 <Form.Control
+                                className='shadow-sm p-3 mb-1 bg-white rounded'
                                 type="text"                              
                                 aria-label='search by title'                           
                                 placeholder="Search by title"                                
@@ -147,6 +146,7 @@ const MoviesList = props => {
                                 /*dropdown field to select a movie rating where we use the map function.
                                 Higher order function (.map) takes a callback function as an argument and returns a new array
                                 with transformed values based on the returned value from the callback function.*/
+                                className='shadow-sm p-3 mb-1 bg-white rounded'
                                 aria-label='search by rating' 
                                 as = "select" onChange={onChangeSearchRating}>
                                 {ratings.map(rating =>{
@@ -167,6 +167,7 @@ const MoviesList = props => {
                         </Col>
                     </Row>                    
                 </Form>
+                </div>
 
                 {/*higher-order function, .map takes a function as an argument and returns a new array based on the output of that function.
                 For each movie in movies, we return a Card component from bootstrap*/}
@@ -174,7 +175,7 @@ const MoviesList = props => {
                 <h2>Movies</h2>
                     {movies.map((movie) =>{
                         return(
-                            <Col>
+                            <Col className='cardCol'>
                                 <Card style={{ width: '18rem'}}>
                                     <Card.Img src={movie.poster+"/100px180"} alt=""/>
                                     <Card.Body>
@@ -191,14 +192,16 @@ const MoviesList = props => {
                     })}
                 </Row>
                 <br />
+                <div className='page'>
                 {/*link buttons which increment and decrement currentPage state variable, triggering useEffect()*/}
                 showing page: {currentPage}.
-                <Button variant='link' onClick={() => {setCurrentPage(currentPage - 1)}}>
+                <Button variant='secondary' onClick={() => {setCurrentPage(currentPage - 1)}}>
                     Get last {entriesPerPage} results
                 </Button>
-                <Button variant='link' onClick={() => {setCurrentPage(currentPage + 1)}}>
+                <Button variant='secondary' onClick={() => {setCurrentPage(currentPage + 1)}}>
                     Get next {entriesPerPage} results
                 </Button>
+                </div>
             </Container>
         </div>
     );

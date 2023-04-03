@@ -32,9 +32,10 @@ const Login = props =>{
     }
 
     return(
-        <div>
-        <h2>Login</h2>
-            <Form>
+        <div class="vh-100">
+            <Form className='login shadow-sm p-3 mb-5 bg-white rounded'>
+            <h2>Login</h2>
+            <br></br>
                 <Form.Group>
                     <h3>Username</h3>
                     <Form.Control
@@ -45,6 +46,7 @@ const Login = props =>{
                         onChange={onChangeName}
                     />
                 </Form.Group>
+                <br></br>
                 <Form.Group>
                     <h3>ID</h3>
                     <Form.Control
@@ -55,7 +57,7 @@ const Login = props =>{
                         onChange={onChangeId}
                     />
                 </Form.Group>
-                <Button variant = "primary" onClick={login}>
+                <Button variant = "btn btn-primary btn-lg" onClick={login}>
                     Submit
                 </Button>
             </Form>
