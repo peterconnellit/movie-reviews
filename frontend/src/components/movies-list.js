@@ -121,10 +121,11 @@ const MoviesList = props => {
                 <Form>
                     <Row>
                         <Col>
-                            <Form.Group>
+                            <Form.Group>                            
                                 <Form.Control
-                                type="text"
-                                placeholder="Search by title"
+                                type="text"                              
+                                aria-label='search by title'                           
+                                placeholder="Search by title"                                
                                 //set to searchTitle state variable
                                 value={searchTitle}
                                 //updates searchTitle
@@ -146,6 +147,7 @@ const MoviesList = props => {
                                 /*dropdown field to select a movie rating where we use the map function.
                                 Higher order function (.map) takes a callback function as an argument and returns a new array
                                 with transformed values based on the returned value from the callback function.*/
+                                aria-label='search by rating' 
                                 as = "select" onChange={onChangeSearchRating}>
                                 {ratings.map(rating =>{
                                     return(
@@ -169,13 +171,14 @@ const MoviesList = props => {
                 {/*higher-order function, .map takes a function as an argument and returns a new array based on the output of that function.
                 For each movie in movies, we return a Card component from bootstrap*/}
                 <Row>
+                <h2>Movies</h2>
                     {movies.map((movie) =>{
                         return(
                             <Col>
                                 <Card style={{ width: '18rem'}}>
-                                    <Card.Img src={movie.poster+"/100px180"} />
+                                    <Card.Img src={movie.poster+"/100px180"} alt=""/>
                                     <Card.Body>
-                                        <Card.Title>{movie.title}</Card.Title>
+                                        <Card.Title><h3>{movie.title}</h3></Card.Title>
                                         <Card.Text>
                                             Rating: {movie.rated}
                                         </Card.Text>

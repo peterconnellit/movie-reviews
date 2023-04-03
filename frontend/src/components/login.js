@@ -33,10 +33,12 @@ const Login = props =>{
 
     return(
         <div>
+        <h2>Login</h2>
             <Form>
                 <Form.Group>
-                    <Form.Label>Username</Form.Label>
+                    <h3>Username</h3>
                     <Form.Control
+                        aria-label='Enter username' 
                         type="text"
                         placeholder="Enter username"
                         value={name}
@@ -44,8 +46,9 @@ const Login = props =>{
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>ID</Form.Label>
+                    <h3>ID</h3>
                     <Form.Control
+                        aria-label='Enter id'
                         type="text"
                         placeholder="Enter id"
                         value={id}

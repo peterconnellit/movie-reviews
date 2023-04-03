@@ -1,4 +1,4 @@
-//axios library for sending get, post, put and delete requests
+//axios library for create, read, update and delete requests requests (CRUD)
 import axios from "axios"
 
 //contains functions for API calls to backend endpoints

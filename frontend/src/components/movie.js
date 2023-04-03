@@ -57,14 +57,15 @@ const Movie = props => {
     return (
         //two columns, one for the movie poster if it exists, and the second for movie details
         <div>
+        <h2>Movie Review</h2>
             <Container>
                 <Row>
                     <Col>
-                        <Image src={movie.poster+"/100px250"} fluid />
+                        <Image src={movie.poster+"/100px250"} fluid alt="Move poster"/>
                     </Col>
                     <Col>
                         <Card>
-                            <Card.Header as="h5">{movie.title}</Card.Header>
+                            <Card.Header as="h3">{movie.title}</Card.Header>
                             <Card.Body>
                                 <Card.Text>
                                     {movie.plot}
@@ -76,14 +77,14 @@ const Movie = props => {
                                 </Link>}
                             </Card.Body>
                         </Card>
-                        <h2>Reviews</h2>
+                        <h3>Reviews</h3>
                         <br></br>
                         {/*higher order function. Renders a Media component for each review*/}  
                         {movie.reviews.map((review, index) =>{
                             return (
                                 <Card key={index}>
                                     <Card.Body>
-                                        <h5>{review.name + " reviewed on "} {moment(review.date).format("Do MMMM YYYY")}</h5>
+                                        <h4>{review.name + " reviewed on "} {moment(review.date).format("Do MMMM YYYY")}</h4>
                                         <p>{review.review}</p>
                                         {/*a user can only delete reviews they have posted.
                                         If props.user is true and the id is the same as the review id, do we render Edit/Delete*/} 

@@ -67,7 +67,7 @@ const AddReview = props =>{
         <div>
             {submitted ? (
                 <div>
-                    <h4>Review submitted successfully</h4>
+                    <h2>Review submitted successfully</h2>
                     <Link to={"/movies/"+props.match.params.id}>
                         Back to Movie
                     </Link>
@@ -75,8 +75,9 @@ const AddReview = props =>{
             ):(
                 <Form>
                     <Form.Group>
-                        <Form.Label>{editing ? "Edit" : "Create"} Review</Form.Label>
+                        <h2>{editing ? "Edit Review" : "Create Review"}</h2>
                         <Form.Control
+                            aria-label='Review' 
                             type='text'
                             required
                             value={review}
