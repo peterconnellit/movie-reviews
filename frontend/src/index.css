@@ -73,7 +73,39 @@ h2{
   border-width: 1px;
 }
 
-@media only screen and (max-width: 600px) {
+.rowTest {
+
+  margin: 10px;
+
+
+
+  display: flex;
+  flex-wrap: wrap;
+ 
+}
+
+.col{
+  padding: 1rem;
+}
+
+
+
+@media (max-width: 775px) {
+
+  .rowTest {
+    display: block;
+  }
+
+  .col{
+    display: grid;
+  }
+
+  .cardCol.col {
+    margin: auto;
+    max-width: fit-content;
+}
+
+
 
   form.login.shadow-sm.p-3.mb-5.bg-white.rounded {
     max-width: 100%;

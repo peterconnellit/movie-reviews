@@ -58,7 +58,7 @@ const Movie = props => {
         <div>
         <h2>Movie Review</h2>
             <Container>
-                <Row>
+                <div class="Row rowTest">
                     <Col>
                         <Image src={movie.poster+"/100px250"} fluid alt="Move poster"/>
                     </Col>
@@ -106,7 +106,7 @@ const Movie = props => {
                             )
                         })}                 
                     </Col>
-                </Row>
+                </div>
             </Container>
         </div>
     );
