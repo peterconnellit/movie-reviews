@@ -91,7 +91,7 @@ const Movie = (props) => {
                     {props.user && props.user.id === review.user_id && (
                       <Row>
                         <Col>
-                          <Link
+                          <Link class="btn btn-link"                       
                             to={{
                               pathname:
                                 "/movies/" + props.match.params.id + "/review",
