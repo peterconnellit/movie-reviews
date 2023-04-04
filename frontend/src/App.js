@@ -27,9 +27,9 @@ function App(){
 
   return (
     <div className="App">
-      <Navbar bg="primary" expand="lg">
+      <Navbar bg="primary" expand="lg" className="navbar-dark">
         <Navbar.Brand><h1>Movie Blog</h1></Navbar.Brand>
-        <Navbar.Toggle class="navbar-toggler" bg="light" aria-controls="basic-navbar-nav"/>
+        <Navbar.Toggle class="navbar-toggler" aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link>
