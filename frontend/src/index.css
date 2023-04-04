@@ -1,14 +1,14 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -17,49 +17,51 @@ code {
   padding-bottom: 10px;
 }
 
-.card{
+.card {
   margin: 1rem;
 }
 
-h1{
+h1 {
   color: white;
 }
 
-h2,h3,h4{
+h2,
+h3,
+h4 {
   color: rgb(68, 62, 60);
 }
 
-h2{
+h2 {
   padding-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.navbar-brand{
+.navbar-brand {
   padding: 1rem;
 }
 
-.btn-light{
+.btn-light {
   margin-right: 10px;
 }
 
-.searches{
+.searches {
   padding-top: 20px;
 }
 
-.btn-primary{
+.btn-primary {
   margin-top: 5px;
 }
 
-.btn-secondary{
+.btn-secondary {
   margin: 10px;
 }
 
-.page{
+.page {
   text-align: right;
 }
 
-.login{ 
+.login {
   text-align: center;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -74,38 +76,28 @@ h2{
 }
 
 .rowTest {
-
   margin: 10px;
-
-
-
   display: flex;
   flex-wrap: wrap;
- 
 }
 
-.col{
+.col {
   padding: 1rem;
 }
 
-
-
 @media (max-width: 775px) {
-
   .rowTest {
     display: block;
   }
 
-  .col{
+  .col {
     display: grid;
   }
 
   .cardCol.col {
     margin: auto;
     max-width: fit-content;
-}
-
-
+  }
 
   form.login.shadow-sm.p-3.mb-5.bg-white.rounded {
     max-width: 100%;
@@ -120,5 +112,4 @@ h2{
   button.btn.btn-link {
     padding: initial;
   }
-
 }
